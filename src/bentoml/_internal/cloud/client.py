@@ -585,7 +585,9 @@ class RestApiClientV2(BaseRestApiClient):
         data = schema_to_json(update_schema)
         resp = self.session.put(url, content=data, params={"cluster": cluster})
         if self._is_not_found(resp):
-            raise NotFound(f"Deployment {name} is not found: {resp.text}")
+            raise NotFound(
+                f"Deployment {name} is not found in cluster {cluster}: {resp.text}"
+            )
         self._check_resp(resp)
         return schema_from_json(resp.text, DeploymentFullSchemaV2)
 
@@ -600,7 +602,9 @@ class RestApiClientV2(BaseRestApiClient):
         )
         resp = self.session.get(url, params={"cluster": cluster})
         if self._is_not_found(resp):
-            raise NotFound(f"Deployment {name} is not found: {resp.text}")
+            raise NotFound(
+                f"Deployment {name} is not found in cluster {cluster}: {resp.text}"
+            )
         self._check_resp(resp)
         return schema_from_json(resp.text, DeploymentFullSchemaV2)
 
@@ -642,7 +646,9 @@ class RestApiClientV2(BaseRestApiClient):
         )
         resp = self.session.post(url, params={"cluster": cluster})
         if self._is_not_found(resp):
-            raise NotFound(f"Deployment {name} is not found: {resp.text}")
+            raise NotFound(
+                f"Deployment {name} is not found in cluster {cluster}: {resp.text}"
+            )
         self._check_resp(resp)
         return schema_from_json(resp.text, DeploymentFullSchemaV2)
 
@@ -657,7 +663,9 @@ class RestApiClientV2(BaseRestApiClient):
         )
         resp = self.session.delete(url, params={"cluster": cluster})
         if self._is_not_found(resp):
-            raise NotFound(f"Deployment {name} is not found: {resp.text}")
+            raise NotFound(
+                f"Deployment {name} is not found in cluster {cluster}: {resp.text}"
+            )
         self._check_resp(resp)
         return schema_from_json(resp.text, DeploymentFullSchemaV2)
 
